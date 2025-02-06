@@ -1,0 +1,27 @@
+////////////NUESTRO INGRESO A LA TERMINAL DE LA OLT POR CONSOLA/////////////
+
+cuando ingresamos por primera ver lo hacemos por cable serial, y para poder saber el puerto usamos el 
+Windows + R y escribimos devmgmt.msc luego vamos a Puertos(COM y LPT) el COM nos indica el puerto
+luego ingresamos por PuTTY
+
+/////////// COMANDOS DE CONFIGURACION//////////
+
+Como primer paso se recomienda realizar un backup de la configuracion asi sea de fabrica 
+enable
+Password:zxr10
+show run ---- visualizar toda la configuracion actual 
+
+ingresamos al mikrotik
+ ojo siemprerelizar bakups tambien del mikrotik, y si queremos reiniciar de fabrica usamos los siguientes COMANDOS
+ /system reset-configuration ----- restaura de fabrica
+ /system reset-configuration no-defaults=yes skip-backup=yes ----- restaura y borra los archivos adicionales
+
+Vamos al puerto de administracion nombramos y confiraremos la ip en nuestro caso es el puerto 2 (ADMIN-ZTE)
+ip/address/nuevo/ ----- colocamos el 136.1.1.101/24 interface ADMIN-ZTE luego Apply
+
+usamos esta configuracion y estos pasos ya que el microtik tiene un servidor ftp eso quiere decir que podemos 
+subir y descargar archivos de forma remota como (backups, scripts, logs, etc.). ello podemos verlo en 
+ip/services .....el backup de la olt lo guardaremos en el microtik en files/pub 
+en la olt ponemos 
+file upload cfg startrun.dat ftp ipaddress 136.1.1.101 path /flash user admin password 123456   -----el user y el password 
+son de acuerdo a como pusiste en el mikrotik (ojo apuntar bien a la carpeta que se tiene que guardar)
